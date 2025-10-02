@@ -1,0 +1,41 @@
+<div class="d-flex justify-content-center align-items-center px-3">
+  <mat-card class="w-100" style="max-width: 400px;">
+    <h2 class="text-center fw-bold mb-4">Crea tu cuenta</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>Dirección de correo</mat-label>
+        <input matInput type="email" formControlName="email" placeholder="Correo electrónico" required />
+        <mat-error *ngIf="registerForm.get('email')?.hasError('required')">Correo obligatorio</mat-error>
+        <mat-error *ngIf="registerForm.get('email')?.hasError('email')">Correo incorrecto</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>Nombre</mat-label>
+        <input matInput type="text" formControlName="name" placeholder="Nombre" required />
+        <mat-error *ngIf="registerForm.get('name')?.hasError('required')">Nombre obligatorio</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" formControlName="password" placeholder="Contraseña" required />
+        <mat-error *ngIf="registerForm.get('password')?.hasError('required')">Contraseña obligatoria</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>Confirmación de contraseña</mat-label>
+        <input matInput type="password" formControlName="confirmPassword" placeholder="Confirmación de contraseña" required />
+        <mat-error *ngIf="registerForm.hasError('passwordMismatch')">Lass contraseñas no coinciden</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" class="w-100 mb-3" [disabled]="registerForm.invalid">
+        Registrar
+      </button>
+
+      <p class="text-center text-muted">
+        Ya estas registrado?
+        <a routerLink="/login" class="text-primary fw-medium"> Inciar sesión </a>
+      </p>
+    </form>
+  </mat-card>
+</div>

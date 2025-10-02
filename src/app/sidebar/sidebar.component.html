@@ -1,0 +1,52 @@
+<aside [class.collapsed]="collapsed" class="sidebar d-flex flex-column p-3">
+  <!-- Toggle Sidebar -->
+  <button mat-icon-button (click)="toggleSidebar()" class="mb-3 d-flex align-items-center justify-content-center text-white">
+    <mat-icon>{{ collapsed ? 'chevron_right' : 'chevron_left' }}</mat-icon>
+  </button>
+
+
+  <!-- Logo -->
+  @if (!collapsed) {
+    <div class="d-flex align-items-center mb-4 gap-2">
+      <div class="bg-primary rounded-circle" style="width:36px;height:36px;"></div>
+      <h1 class="h5 mb-0 text-white">Acme Inc.</h1>
+    </div>
+  }
+
+  <!-- Navigation -->
+  <nav class="flex-grow-1 d-flex flex-column gap-2">
+    <a matTooltip="Dashboard" routerLink="/dashboard" class="menu-item" [class.just-icon]="collapsed">
+      <mat-icon>dashboard</mat-icon>
+      @if (!collapsed) { <span >Dashboard</span> }
+    </a>
+    <a matTooltip="Servicios" routerLink="/servicios" class="menu-item" [class.just-icon]="collapsed">
+      <mat-icon>science</mat-icon>
+      @if (!collapsed) { <span>Servicios</span> }
+    </a>
+    <a matTooltip="Mis ensayos" routerLink="#" class="menu-item" [class.just-icon]="collapsed">
+      <mat-icon>description</mat-icon>
+      @if (!collapsed) { <span>Mis ensayos</span> }
+    </a>
+    <a matTooltip="Hojas de resultado" routerLink="#" class="menu-item" [class.just-icon]="collapsed">
+      <mat-icon>dataset</mat-icon>
+      @if (!collapsed) { <span>Hojas de resultado</span> }
+    </a>
+    <a matTooltip="Ensayos" routerLink="#" class="menu-item" [class.just-icon]="collapsed">
+      <mat-icon>list_alt</mat-icon>
+      @if (!collapsed) { <span>Ensayos</span> }
+    </a>
+    <a matTooltip="Facturas" routerLink="#" class="menu-item" [class.just-icon]="collapsed">
+      <mat-icon>request_page</mat-icon>
+      @if (!collapsed) { <span>Facturas</span> }
+    </a>
+  </nav>
+
+  <!-- Theme Toggle -->
+  @if (!collapsed) {
+
+
+    <div class="mt-auto">
+      <mat-slide-toggle [checked]="darkMode" (change)="toggleDarkMode()" color="primary">Modo Oscuro</mat-slide-toggle>
+    </div>
+  }
+</aside>

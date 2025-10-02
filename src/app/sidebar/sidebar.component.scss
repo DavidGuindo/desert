@@ -1,0 +1,51 @@
+.sidebar {
+  width: 16rem;
+  height: 100vh; /* Ocupa todo el lateral */
+  background-color: #137fec; /* Color principal */
+  color: #fff;
+  transition: width 0.3s;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 1rem;
+
+  &.collapsed {
+    width: 5rem; /* Lo suficientemente ancho para iconos */
+    .just-icon {
+      justify-content: center;
+    }
+
+    mat-slide-toggle {
+      display: none; /* Ocultar toggle en colapsado */
+    }
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+
+    mat-icon {
+      font-size: 24px;
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+  }
+}
+
+body.dark-mode {
+  background-color: #101922;
+
+  .sidebar {
+    background-color: #1e2733;
+  }
+}

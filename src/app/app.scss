@@ -1,0 +1,34 @@
+.layout {
+  display: flex;
+  height: 100vh; /* Toda la altura del viewport */
+  overflow: hidden; /* Evita scroll en el contenedor principal */
+}
+
+.content {
+  margin-left: 16rem; /* ancho del sidebar */
+  flex-grow: 1;
+  height: 100vh;
+  overflow-y: auto; /* Scroll solo en contenido principal */
+  padding: 1.5rem;
+
+  @media (max-width: 768px) {
+    margin-left: 4.5rem; /* si el sidebar se colapsa en responsive */
+  }
+}
+
+
+main.content {
+  height: 100vh;
+  overflow-y: auto;
+  transition: margin-left 0.3s; /* transición suave */
+  padding: 1.5rem;
+}
+
+app-sidebar {
+  flex-shrink: 0; /* No se encoge */
+  height: 100vh;  /* Sidebar siempre completo */
+  position: fixed; /* Fijo en la izquierda */
+  top: 0;
+  left: 0;
+  z-index: 100;
+}

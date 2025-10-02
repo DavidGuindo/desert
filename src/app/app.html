@@ -1,0 +1,13 @@
+<div class="layout">
+    <!-- Sidebar -->
+    @if (showSidebar()) {
+        <app-sidebar (collapsedChange)="onSidebarToggle($event)"></app-sidebar>
+    }
+    <!-- Contenido principal -->
+    <main class="content" [ngStyle]="{'margin-left.px': showSidebar() ? mainMargin : 0}">
+
+        <router-outlet></router-outlet>
+
+
+    </main>
+</div>

@@ -1,0 +1,41 @@
+<div class="d-flex justify-content-center align-items-center px-3">
+  <mat-card class="w-100" style="max-width: 400px;">
+    <div class="text-center mb-4">
+      <h2 class="fw-bold">Bienvenido a Novex!</h2>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput type="email" formControlName="email" placeholder="Introduce tu email" required />
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Email obligatorio</mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Email incorrecto</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" formControlName="password" placeholder="Introduce la contraseña" required />
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Contraseña obligatoria</mat-error>
+      </mat-form-field>
+
+      <mat-checkbox formControlName="rememberMe" class="mb-3 w-100">
+        Recordarme
+      </mat-checkbox>
+
+      <button mat-raised-button color="primary" class="w-100 mb-3" [disabled]="loginForm.invalid">
+        Iniciar sesión
+      </button>
+    </form>
+
+    <div class="text-center">
+        <a href="#" class="text-primary">Has olvidado tu contraseña?</a>
+      </div>
+
+      <div class="text-center mt-3">
+        <button mat-button color="accent" class="w-100" routerLink="/register">
+          Crea tu cuenta
+        </button>
+      </div>
+
+  </mat-card>
+</div>

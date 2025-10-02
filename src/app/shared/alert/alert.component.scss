@@ -1,0 +1,8 @@
+/* Clase CSS para posicionar la alerta emergente. */
+.custom-alert-position {
+    position: fixed; 
+    bottom: 20px;       
+    right: 20px;     
+    z-index: 1050;   
+    min-width: 300px; 
+}
