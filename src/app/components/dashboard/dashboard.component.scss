@@ -1,0 +1,28 @@
+// Estilos para textos que deben cambiar con el tema
+.text-secondary {
+  color: var(--mat-sys-on-surface-variant) !important;
+}
+
+h2, h3 {
+  color: var(--mat-sys-on-surface);
+}
+
+p {
+  color: var(--mat-sys-on-surface);
+}
+
+// Estilos para las tarjetas del dashboard
+mat-card {
+  background-color: var(--mat-sys-surface-container);
+  color: var(--mat-sys-on-surface);
+  border: 1px solid var(--mat-sys-outline-variant);
+}
+
+// Estilos para las barras de progreso
+.progress {
+  background-color: var(--mat-sys-surface-container-low);
+}
+
+.progress-bar {
+  background-color: var(--mat-sys-primary) !important;
+}

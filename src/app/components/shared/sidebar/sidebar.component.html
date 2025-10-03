@@ -1,0 +1,52 @@
+<!-- Sidebar para desktop -->
+<aside [class.collapsed]="collapsed" [class.mobile-hidden]="!(isVisible$ | async)" class="sidebar d-flex flex-column p-3">
+  <!-- Toggle Sidebar (solo en desktop) -->
+  <button mat-icon-button (click)="toggleSidebar()" class="mb-3 d-flex align-items-center justify-content-center toggle-btn d-none d-md-flex">
+    <mat-icon>{{ collapsed ? 'chevron_right' : 'chevron_left' }}</mat-icon>
+  </button>
+
+  <!-- Botón cerrar en móvil -->
+  <button mat-icon-button (click)="sidebarService.close()" class="mb-3 d-flex align-items-center justify-content-center close-mobile-btn d-md-none">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <!-- Navigation -->
+  <nav class="flex-grow-1 d-flex flex-column gap-2">
+    <a matTooltip="Dashboard" routerLink="/dashboard" class="menu-item" [class.just-icon]="collapsed" (click)="sidebarService.close()">
+      <mat-icon>dashboard</mat-icon>
+      @if (!collapsed) { <span>Dashboard</span> }
+    </a>
+    <a matTooltip="Servicios" routerLink="/servicios" class="menu-item" [class.just-icon]="collapsed" (click)="sidebarService.close()">
+      <mat-icon>science</mat-icon>
+      @if (!collapsed) { <span>Servicios</span> }
+    </a>
+    <a matTooltip="Mis ensayos" routerLink="#" class="menu-item" [class.just-icon]="collapsed" (click)="sidebarService.close()">
+      <mat-icon>description</mat-icon>
+      @if (!collapsed) { <span>Mis ensayos</span> }
+    </a>
+    <a matTooltip="Hojas de resultado" routerLink="#" class="menu-item" [class.just-icon]="collapsed" (click)="sidebarService.close()">
+      <mat-icon>dataset</mat-icon>
+      @if (!collapsed) { <span>Hojas de resultado</span> }
+    </a>
+    <a matTooltip="Ensayos" routerLink="#" class="menu-item" [class.just-icon]="collapsed" (click)="sidebarService.close()">
+      <mat-icon>list_alt</mat-icon>
+      @if (!collapsed) { <span>Ensayos</span> }
+    </a>
+    <a matTooltip="Facturas" routerLink="#" class="menu-item" [class.just-icon]="collapsed" (click)="sidebarService.close()">
+      <mat-icon>request_page</mat-icon>
+      @if (!collapsed) { <span>Facturas</span> }
+    </a>
+  </nav>
+
+  <!-- Theme Toggle -->
+  @if (!collapsed) {
+    <div class="mt-auto">
+      <mat-slide-toggle [checked]="isDarkMode$ | async" (change)="toggleDarkMode()" color="primary">Modo Oscuro</mat-slide-toggle>
+    </div>
+  }
+</aside>
+
+<!-- Oscurece todo el fondo cuando se abre el sidebar en móvil -->
+@if (isVisible$ | async) {
+  <div class="mobile-overlay" (click)="sidebarService.close()"></div>
+}

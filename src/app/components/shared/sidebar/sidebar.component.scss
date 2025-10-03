@@ -1,0 +1,138 @@
+.sidebar {
+  width: 16rem;
+  height: calc(100vh - 64px);
+  transition: width 0.3s, transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 1rem;
+  background-color: var(--mat-sys-surface-container-high);
+  border-right: 1px solid var(--mat-sys-outline-variant);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+
+  &.collapsed {
+    width: 5rem;
+    .just-icon {
+      justify-content: center;
+    }
+
+    mat-slide-toggle {
+      display: none;
+    }
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+    color: var(--mat-sys-on-surface);
+    background-color: transparent;
+
+    mat-icon {
+      font-size: 24px;
+      color: var(--mat-sys-on-surface-variant);
+    }
+
+    &:hover {
+      background-color: var(--mat-sys-surface-container);
+      color: var(--mat-sys-on-surface);
+    }
+
+    &.active {
+      background-color: var(--mat-sys-primary-container);
+      color: var(--mat-sys-on-primary-container);
+      
+      mat-icon {
+        color: var(--mat-sys-on-primary-container);
+      }
+    }
+  }
+
+  // Estilos para el toggle del tema
+  mat-slide-toggle {
+    color: var(--mat-sys-on-surface);
+  }
+
+  // Estilos para el botón de toggle del sidebar
+  .toggle-btn {
+    color: var(--mat-sys-on-surface);
+    
+    mat-icon {
+      color: var(--mat-sys-on-surface-variant);
+    }
+  }
+
+  // Estilos para el botón de cerrar en móvil
+  .close-mobile-btn {
+    color: var(--mat-sys-on-surface);
+    
+    mat-icon {
+      color: var(--mat-sys-on-surface-variant);
+    }
+  }
+}
+
+// Overlay para móvil
+.mobile-overlay {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 64px);
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  
+  @media (max-width: 768px) {
+    top: 56px;
+    height: calc(100vh - 56px);
+  }
+}
+
+// Responsive behavior
+@media (max-width: 768px) {
+  .sidebar {
+    width: 16rem;
+    transform: translateX(-100%);
+    
+    &.mobile-hidden {
+      transform: translateX(-100%);
+    }
+    
+    &:not(.mobile-hidden) {
+      transform: translateX(0);
+    }
+    
+    &.collapsed {
+      width: 16rem; // En móvil no se colapsa
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .sidebar {
+    position: relative;
+    transform: translateX(0);
+    
+    .close-mobile-btn {
+      display: none !important;
+    }
+    
+    .mobile-overlay {
+      display: none !important;
+    }
+    
+    // En desktop, el sidebar siempre está visible cuando el servicio lo indica
+    &:not(.mobile-hidden) {
+      display: flex;
+    }
+  }
+}
+

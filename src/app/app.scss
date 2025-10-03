@@ -1,34 +1,46 @@
 .layout {
   display: flex;
-  height: 100vh; /* Toda la altura del viewport */
-  overflow: hidden; /* Evita scroll en el contenedor principal */
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+// Navbar ocupa todo el ancho
+app-navbar {
+  width: 100%;
+  display: block;
 }
 
 .content {
   margin-left: 16rem; /* ancho del sidebar */
   flex-grow: 1;
-  height: 100vh;
-  overflow-y: auto; /* Scroll solo en contenido principal */
+  min-height: calc(100vh - 64px); /* Restar altura del navbar */
+  overflow-y: auto;
   padding: 1.5rem;
+  transition: margin-left 0.3s;
 
   @media (max-width: 768px) {
-    margin-left: 4.5rem; /* si el sidebar se colapsa en responsive */
+    margin-left: 0; /* En móvil no hay margen */
+    min-height: calc(100vh - 56px); /* Navbar más pequeño en móvil */
   }
 }
 
-
-main.content {
-  height: 100vh;
-  overflow-y: auto;
-  transition: margin-left 0.3s; /* transición suave */
-  padding: 1.5rem;
-}
-
 app-sidebar {
-  flex-shrink: 0; /* No se encoge */
-  height: 100vh;  /* Sidebar siempre completo */
-  position: fixed; /* Fijo en la izquierda */
-  top: 0;
-  left: 0;
-  z-index: 100;
+  display: block;
+  
+  @media (min-width: 769px) {
+    position: fixed;
+    top: 64px; /* Debajo del navbar */
+    left: 0;
+    z-index: 100;
+    height: calc(100vh - 64px);
+  }
+  
+  @media (max-width: 768px) {
+    position: fixed;
+    top: 56px; /* Debajo del navbar móvil */
+    left: 0;
+    z-index: 100;
+    height: calc(100vh - 56px);
+  }
 }

@@ -19,8 +19,8 @@ import { DeleteConfirmDialogComponent } from '../shared/delete-confirm-dialog/de
 import { ServiceFormModal } from './service-form-modal/service-form-modal';
 import { AlertComponent, AlertType } from "../shared/alert/alert.component";
 import { MatDialogModule } from '@angular/material/dialog'; // Asumo que AlertComponent usa el enum AlertType
-import { Service } from './models/service';
-import { StateService } from './models/stateService.enum';
+import { Service } from '../../models/service';
+import { StateService } from '../../models/stateService.enum';
 
 @Component({
   selector: 'app-services',

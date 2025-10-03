@@ -12,9 +12,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 
-import { Service } from '../models/service'; // Ajusta la ruta
-import { Sample } from '../models/sample';
-import { TrialOfSample } from '../models/trialOfSample';
+import { Service } from '../../../models/service';
+import { Sample } from '../../../models/sample';
+import { TrialOfSample } from '../../../models/trialOfSample';
 
 // Datos que el modal espera recibir
 export interface ServicioEditorservice {

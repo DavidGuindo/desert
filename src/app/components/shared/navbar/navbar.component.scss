@@ -1,0 +1,154 @@
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 64px;
+  padding: 0 1rem;
+  background-color: var(--mat-sys-surface-container-high);
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  color: var(--mat-sys-on-surface);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.navbar-left,
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+// Logo de la empresa
+.company-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.company-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: var(--mat-sys-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &::before {
+    content: "A";
+    color: var(--mat-sys-on-primary);
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+}
+
+.company-name {
+  color: var(--mat-sys-on-surface);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+// Logo del cliente
+.client-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--mat-sys-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &::before {
+    content: "C";
+    color: var(--mat-sys-on-secondary);
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+}
+
+// Botón hamburguesa para móvil
+.hamburger-menu {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: var(--mat-sys-on-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+// Menú de usuario
+.user-menu {
+  display: flex;
+  align-items: center;
+}
+
+.user-profile-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: 1px solid var(--mat-sys-outline);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  color: var(--mat-sys-on-surface);
+  background-color: var(--mat-sys-surface-container);
+  transition: all 0.2s ease;
+  
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  &:hover {
+    background-color: var(--mat-sys-surface-container-high);
+    border-color: var(--mat-sys-outline-variant);
+  }
+  
+  &:active {
+    background-color: var(--mat-sys-surface-container-highest);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 0 0.5rem;
+    height: 56px;
+  }
+  
+  .company-logo {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .client-logo {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .user-profile-button {
+    padding: 0.4rem 0.6rem;
+    
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .hamburger-menu {
+    display: none !important;
+  }
+}

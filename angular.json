@@ -31,7 +31,9 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/themes/darktheme.css",
+              "src/themes/lighttheme.css"
             ]
           },
           "configurations": {

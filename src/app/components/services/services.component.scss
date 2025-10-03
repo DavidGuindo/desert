@@ -1,0 +1,63 @@
+mat-card {
+  border-radius: 0.75rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  background-color: var(--mat-sys-surface-container);
+  color: var(--mat-sys-on-surface);
+
+  &:hover {
+    transform: scale(1.06); // aumenta un 3% el tamaño
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    //background-color: #e9ecef; // gris un poco más oscuro al pasar el mouse
+  }
+}
+
+// Estilos para textos que deben cambiar con el tema
+.text-secondary {
+  color: var(--mat-sys-on-surface-variant) !important;
+}
+
+h2 {
+  color: var(--mat-sys-on-surface);
+}
+
+// Asegurar que los títulos y subtítulos de las tarjetas usen las variables del tema
+:host ::ng-deep .mat-mdc-card-header .mat-mdc-card-header-text {
+  /* Esta es la regla clave. Le dice al contenedor del texto que puede encogerse. */
+  min-width: 0;
+}
+
+:host ::ng-deep .mat-mdc-card-title {
+  color: var(--mat-sys-on-surface) !important;
+}
+
+:host ::ng-deep .mat-mdc-card-subtitle {
+  color: var(--mat-sys-on-surface-variant) !important;
+}
+
+// Estilos para botones y elementos de interfaz
+.btn-outline-secondary {
+  color: var(--mat-sys-on-surface-variant);
+  border-color: var(--mat-sys-outline);
+  
+  &:hover {
+    background-color: var(--mat-sys-surface-container);
+    color: var(--mat-sys-on-surface);
+  }
+}
+
+.form-control {
+  background-color: var(--mat-sys-surface-container);
+  border-color: var(--mat-sys-outline);
+  color: var(--mat-sys-on-surface);
+  
+  &::placeholder {
+    color: var(--mat-sys-on-surface-variant);
+  }
+  
+  &:focus {
+    background-color: var(--mat-sys-surface-container);
+    border-color: var(--mat-sys-primary);
+    color: var(--mat-sys-on-surface);
+  }
+}
