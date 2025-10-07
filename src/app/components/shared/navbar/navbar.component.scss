@@ -1,11 +1,6 @@
 .navbar-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
   height: 64px;
-  padding: 0 1rem;
-  background-color: var(--mat-sys-surface-container-high);
+  background-color: var(--mat-sys-background);
   border-bottom: 1px solid var(--mat-sys-outline-variant);
   color: var(--mat-sys-on-surface);
   position: sticky;
@@ -14,19 +9,6 @@
   box-sizing: border-box;
 }
 
-.navbar-left,
-.navbar-right {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-// Logo de la empresa
-.company-logo-container {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
 
 .company-logo {
   width: 40px;
@@ -86,29 +68,14 @@
   }
 }
 
-// Menú de usuario
-.user-menu {
-  display: flex;
-  align-items: center;
-}
-
 .user-profile-button {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
   background: none;
   border: 1px solid var(--mat-sys-outline);
   border-radius: 8px;
-  padding: 0.5rem 0.75rem;
   cursor: pointer;
   color: var(--mat-sys-on-surface);
   background-color: var(--mat-sys-surface-container);
   transition: all 0.2s ease;
-  
-  svg {
-    width: 20px;
-    height: 20px;
-  }
   
   &:hover {
     background-color: var(--mat-sys-surface-container-high);

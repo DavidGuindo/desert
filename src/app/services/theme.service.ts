@@ -8,18 +8,15 @@ import { BehaviorSubject } from 'rxjs';
 export class ThemeService {
   // Usamos un BehaviorSubject para poder tener un valor inicial
   private _isDarkMode = new BehaviorSubject<boolean>(false);
-  private renderer: Renderer2;
+  private renderer: Renderer2; // Para cambiar la clase del tema
 
-  // Exponemos el estado como un Observable para que los componentes se suscriban
+  // OBservable para subscribirse
   public isDarkMode$ = this._isDarkMode.asObservable();
 
-  constructor(
-    private rendererFactory: RendererFactory2,
-    @Inject(DOCUMENT) private document: Document
-  ) {
+  constructor( private rendererFactory: RendererFactory2, @Inject(DOCUMENT) private document: Document ) {
     this.renderer = this.rendererFactory.createRenderer(null, null);
     
-    // Al iniciar, revisamos si el usuario ya tenía un tema guardado
+    // Obtenemos el ultimo estado del usuario al iniciar
     const savedTheme = localStorage.getItem('isDarkMode');
     const isDarkMode = savedTheme === 'true';
     
@@ -32,27 +29,23 @@ export class ThemeService {
     const newMode = !this._isDarkMode.value;
     this._isDarkMode.next(newMode);
     
-    // Aplicamos el tema visualmente
+    // Aplicamos el tema
     this.applyTheme(newMode);
     
     // Guardamos la preferencia en el localStorage del navegador
     localStorage.setItem('isDarkMode', newMode.toString());
   }
 
-  // Método privado para aplicar el tema al DOM
+  // Aplica o quita el tema oscuro 
   private applyTheme(isDarkMode: boolean): void {
     const body = this.document.body;
     const html = this.document.documentElement;
     
     if (isDarkMode) {
       this.renderer.addClass(body, 'dark-theme');
-      this.renderer.removeClass(body, 'light-theme');
       this.renderer.addClass(html, 'dark-theme');
-      this.renderer.removeClass(html, 'light-theme');
     } else {
-      this.renderer.addClass(body, 'light-theme');
       this.renderer.removeClass(body, 'dark-theme');
-      this.renderer.addClass(html, 'light-theme');
       this.renderer.removeClass(html, 'dark-theme');
     }
   }

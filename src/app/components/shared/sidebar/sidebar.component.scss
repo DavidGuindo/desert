@@ -6,7 +6,7 @@
   flex-direction: column;
   overflow: hidden;
   padding: 1rem;
-  background-color: var(--mat-sys-surface-container-high);
+  background-color: var(--mat-sys-background);
   border-right: 1px solid var(--mat-sys-outline-variant);
   position: fixed;
   left: 0;
@@ -44,6 +44,10 @@
     &:hover {
       background-color: var(--mat-sys-surface-container);
       color: var(--mat-sys-on-surface);
+      .mat-icon {
+      color: var(--mat-sys-primary);
+        
+      }
     }
 
     &.active {

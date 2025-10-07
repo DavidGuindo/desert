@@ -2,7 +2,7 @@ mat-card {
   border-radius: 0.75rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
-  background-color: var(--mat-sys-surface-container);
+  background-color: var(--mat-sys-on-primary);
   color: var(--mat-sys-on-surface);
 
   &:hover {
@@ -12,6 +12,10 @@ mat-card {
   }
 }
 
+.mat-mdc-paginator {
+  background-color: var(--mat-sys-inverse-on-surface);
+
+}
 // Estilos para textos que deben cambiar con el tema
 .text-secondary {
   color: var(--mat-sys-on-surface-variant) !important;

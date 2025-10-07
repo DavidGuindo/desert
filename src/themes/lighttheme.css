@@ -43,7 +43,7 @@
   --mat-sys-surface-container-low: light-dark(#ede5e5, #1c1b1b);
   --mat-sys-surface-container-lowest: light-dark(#f8f3f3, #0e0e0e);
   --mat-sys-surface-container: light-dark(#e8e0e0, #201f1f);
-  --mat-sys-surface-container-high: light-dark(#e2d8d8, #2a2a2a);
+  --mat-sys-surface-container-high: light-dark(#FFFFFF, #2a2a2a);
   --mat-sys-surface-container-highest: light-dark(#ddd0d0, #353434);
   --mat-sys-on-surface: light-dark(#1c1b1b, #e5e2e1);
   --mat-sys-shadow: light-dark(#000000, #000000);
@@ -62,7 +62,7 @@
   --mat-sys-on-error-container: light-dark(#410002, #ffdad6);
 
   /* Neutral variant palette variables */
-  --mat-sys-surface-variant: light-dark(#e2d8d8, #444748);
+  --mat-sys-surface-variant: light-dark(#FFFFFF, #444748);
   --mat-sys-on-surface-variant: light-dark(#444748, #c4c7c8);
   --mat-sys-neutral-variant20: light-dark(#2d3132, #2d3132); /* Variable used for the sidenav scrim (container background shadow when opened) */
 
