@@ -42,6 +42,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &:hover {
+    cursor: pointer;
+  }
   
   &::before {
     content: "C";
@@ -49,6 +53,9 @@
     font-weight: bold;
     font-size: 0.9rem;
   }
+}
+.mat-mdc-menu-content {
+  padding: 0px;
 }
 
 // Botón hamburguesa para móvil

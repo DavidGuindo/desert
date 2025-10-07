@@ -1,64 +1,16 @@
-/* --- Contenedor principal y separadores --- */
-.datos-generales-form {
-  display: flex;
-  gap: 16px; // Espacio entre los campos del formulario
+.close-button{
+  cursor: pointer;
+}
+/* Añade padding uniforme al contenido de cada pestaña */
+.tab-content {
+  padding: 24px 4px; // 24px de espacio vertical, 4px horizontal para alinear con el formulario.
 }
 
-.divider-seccion {
-  margin: 24px 0;
+/* Ajuste para las etiquetas del formulario para que no se peguen al campo */
+.form-label {
+  min-width: 100px; // Ancho mínimo para la etiqueta
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.7);
 }
 
-.seccion-titulo {
-  color: rgba(0, 0, 0, 0.6);
-  margin-bottom: 16px;
-}
-
-/* --- Contenedor para la lista horizontal de muestras --- */
-.muestras-container {
-  display: flex;
-  overflow-x: auto; // ¡La magia del scroll horizontal!
-  padding: 16px;
-  margin: -16px; // Compensa el padding para alinear
-  gap: 24px; // Espacio entre las tarjetas de muestra
-  align-items: flex-start; // Alinea las tarjetas en la parte superior
-}
-
-/* --- Estilo para cada tarjeta de muestra --- */
-.muestra-card {
-  min-width: 320px;
-  flex-shrink: 0; // Evita que las tarjetas se encojan
-}
-
-.muestra-card-header {
-  display: flex;
-  align-items: center;
-
-  .item-input {
-    flex-grow: 1;
-  }
-}
-
-/* --- Estilos para la lista de ensayos --- */
-.ensayos-list-content {
-  // Altura máxima para la lista de ensayos con scroll si es necesario
-  max-height: 250px;
-  overflow-y: auto;
-  padding-top: 16px;
-}
-
-.ensayo-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.item-input {
-  width: 100%;
-}
-
-/* --- Botón para añadir nuevas muestras --- */
-.add-muestra-button {
-  // Se alinea verticalmente con las tarjetas
-  align-self: center;
-}
+/* ELIMINADO: Los estilos para .contenedor-bordeado, .texto-en-borde y .collapse-button ya no se necesitan. */

@@ -220,13 +220,15 @@ export class ServicesComponent implements OnInit{
     });
   }
 
+  // Abre el modal de servicio
   openModalService(service?: any): void{
 
     const dialogRef = this.dialog.open(ServiceFormModal, {
       width: '90vw',
       maxWidth: '1200px',
       disableClose: true, // Evita que se cierre al hacer clic fuera
-      data: service
+      data: service,
+      position: { top: '40px' },
     });
 
     dialogRef.afterClosed().subscribe(result => {

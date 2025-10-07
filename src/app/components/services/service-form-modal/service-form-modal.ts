@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 // Importaciones de Angular Material
@@ -11,10 +11,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker'; // <-- Para el Datepicker
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { Service } from '../../../models/service';
 import { Sample } from '../../../models/sample';
 import { TrialOfSample } from '../../../models/trialOfSample';
+import { AlertComponent, AlertType } from "../../shared/alert/alert.component";
+import { MatTabsModule } from '@angular/material/tabs';
 
 // Datos que el modal espera recibir
 export interface ServicioEditorservice {
@@ -35,107 +40,135 @@ export interface ServicioEditorservice {
     MatListModule,
     MatCardModule,
     MatDividerModule,
-  ],
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    AlertComponent,
+    MatTabsModule,
+],
   templateUrl: './service-form-modal.html',
   styleUrls: ['./service-form-modal.scss'],
 })
 export class ServiceFormModal implements OnInit {
+  // --- Propiedades del Componente ---
   servicioForm!: FormGroup;
-  selectedMuestraIndex: number | null = null;
+  clientes: any[] = [];
+  contactos: any[] = [];
+  contactosFiltrados: any[] = [];
+  @ViewChild('alert') alert!: AlertComponent;
+  public AlertType = AlertType; 
+  
 
+  
   constructor ( private fb: FormBuilder, public dialogRef: MatDialogRef<ServiceFormModal>, @Inject(MAT_DIALOG_DATA) public service: Service ) { }
 
   ngOnInit(): void {
-    this.buildForm();
-    // Rellenamos el formulario con los datos iniciales
+    this.cargarDatosMaestros(); // Simula la carga de clientes y contactos desde un API
+    this.inicializarFormulario();
+    this.configurarDependencias();
+
+    // Rellenamos el formulario con los datos iniciales o lo desactivamos
     if (this.service) {
-      this.servicioForm.patchValue(this.service);
-      this.service.samples.forEach(sample => {
-        this.addMuestra(sample);
-      });
+      // Usamos un mapeo para asegurar que los objetos del select coincidan
+      const clienteSeleccionado = this.clientes.find(c => c.id === this.service.client);
+      
+      const formValue = {
+        ...this.service,
+        cliente: clienteSeleccionado,
+      };
+
+      this.servicioForm.patchValue(formValue);
+    } else {
+      this.servicioForm.disable();
     }
+    
   }
-  // --- Lógica para construir el formulario ---
-  private buildForm(): void {
-    this.servicioForm = this.fb.group({
-      id: [{ value: null, disabled: true }],
-      usuario: ['', Validators.required],
-      cliente: ['', Validators.required],
-      muestras: this.fb.array([]),
-    });
+ 
+  // Getter para acceso a formulario
+  get form(): { [key: string]: AbstractControl } {
+    return this.servicioForm.controls;
   }
 
-  // --- Getters para acceder fácilmente a los FormArrays en la plantilla ---
-  get muestras(): FormArray {
-    return this.servicioForm.get('muestras') as FormArray;
+  private inicializarFormulario(): void {
+    this.servicioForm = this.fb.group(
+      {
+        cliente: [null, Validators.required],
+        contacto: [
+          { 
+            value: null, 
+            disabled: true 
+          },
+          Validators.required],
+        observaciones: ['', Validators.maxLength(500)],
+        fechaInicio: [null, Validators.required],
+        fechaFin: [null, Validators.required]
+      }, {
+        // Añadimos un validador a nivel de grupo para las fechas
+        validators: this.validadorFechas
+      }
+    );
   }
 
-  getEnsayos(muestraIndex: number): FormArray {
-    return this.muestras.at(muestraIndex).get('ensayos') as FormArray;
-  }
+  // Validador personalizado para asegurar que la fecha de fin sea posterior a la de inicio
+  private validadorFechas(control: AbstractControl): ValidationErrors | null {
+    const fechaInicio = control.get('fechaInicio')?.value;
+    const fechaFin = control.get('fechaFin')?.value;
 
-
-
-  private createMuestra(muestra?: Sample): FormGroup {
-    const formGroup = this.fb.group({
-      id: [muestra?.id || null],
-      codigo: [muestra?.id || '', Validators.required],
-      ensayos: this.fb.array([]),
-    });
-    // Si la muestra tiene ensayos, los añadimos al sub-array
-    if (muestra?.ensayos) {
-      muestra.ensayos.forEach(ensayo => {
-        (formGroup.get('ensayos') as FormArray).push(this.createEnsayo(ensayo));
-      });
+    if (fechaInicio && fechaFin && new Date(fechaFin) <= new Date(fechaInicio)) {
+      // Devolvemos un objeto de error si la validación falla
+      return { fechasInvalidas: true };
     }
-    return formGroup;
+    // Devolvemos null si la validación es correcta
+    return null;
   }
 
-  private createEnsayo(ensayo?: TrialOfSample): FormGroup {
-    return this.fb.group({
-      id: [ensayo?.id || null],
-      nombre: [ensayo?.nameCode || '', Validators.required],
-      resultado: [ensayo?.trialCode || null],
-    });
+  private configurarDependencias(): void {
+    // Escuchamos los cambios en el selector de cliente
+    this.servicioForm.get('cliente')?.valueChanges.subscribe(
+      (clienteSeleccionado: any) => {
+        const controlContacto = this.servicioForm.get('contacto');
+        controlContacto?.reset(); // Limpiamos el valor anterior
+
+        if (clienteSeleccionado) {
+          // Filtramos los contactos que pertenecen al cliente seleccionado
+          this.contactosFiltrados = this.contactos.filter(c => c.clienteId === clienteSeleccionado.id);
+          controlContacto?.enable(); // Habilitamos el selector de contacto
+        } else {
+          this.contactosFiltrados = [];
+          controlContacto?.disable(); // Lo deshabilitamos si no hay cliente
+        }
+      }
+    );
   }
 
-  // --- Lógica para añadir/eliminar elementos ---
-  addMuestra(muestra?: Sample): void {
-    const muestraFormGroup = this.createMuestra(muestra);
-    this.muestras.push(muestraFormGroup);
+  private cargarDatosMaestros(): void {
+    // Simulación de una llamada a un API
+    this.clientes = [
+      { id: 1, nombre: 'Empresa A (Tecnología)' },
+      { id: 2, nombre: 'Compañía B (Consultoría)' },
+      { id: 3, nombre: 'Organización C (Logística)' }
+    ];
+
+    this.contactos = [
+      { id: 10, clienteId: 1, nombre: 'Ana García', email: 'ana.g@empresa-a.com' },
+      { id: 11, clienteId: 1, nombre: 'Luis Torres', email: 'luis.t@empresa-a.com' },
+      { id: 20, clienteId: 2, nombre: 'Marta Jiménez', email: 'marta.j@compania-b.com' },
+      { id: 30, clienteId: 3, nombre: 'Carlos Ruiz', email: 'carlos.r@org-c.com' },
+      { id: 31, clienteId: 3, nombre: 'Sofía Navarro', email: 'sofia.n@org-c.com' }
+    ];
   }
 
-  addEnsayo(muestraIndex: number): void {
-    const ensayosArray = this.getEnsayos(muestraIndex);
-    ensayosArray.push(this.createEnsayo());
-  }
-
-  removeMuestra(index: number): void {
-    this.muestras.removeAt(index);
-    if (this.selectedMuestraIndex === index) {
-      this.selectedMuestraIndex = null; // Deseleccionar si se borra la muestra activa
-    }
-  }
-
-  removeEnsayo(muestraIndex: number, ensayoIndex: number): void {
-    this.getEnsayos(muestraIndex).removeAt(ensayoIndex);
-  }
-
-  // --- Lógica de la UI y del modal ---
-  selectMuestra(index: number): void {
-    this.selectedMuestraIndex = index;
-  }
-
-  // Función de ayuda para el casting en la plantilla
-  toFormGroup(control: AbstractControl): FormGroup {
-    return control as FormGroup;
-  }
 
   onSave(): void {
     if (this.servicioForm.valid) {
       this.dialogRef.close(this.servicioForm.getRawValue());
     } else {
-      // Marcar todos los campos como tocados para mostrar errores
+      // Lanza error personalzado
+      this.servicioForm.hasError('fechasInvalidas') ?
+        this.alert.show("Rango de fechas incorrecto", this.AlertType.Error)
+        : this.alert.show("Datos incorrectos, revise los datos introducidos", this.AlertType.Error); 
+      
+      // Marca el formulario en rojo
       this.servicioForm.markAllAsTouched();
     }
   }

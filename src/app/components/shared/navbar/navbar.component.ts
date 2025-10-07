@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SidebarService } from '../../../services/sidebar.service';
 import { MatIcon } from '@angular/material/icon';
+import { MatMenuModule } from "@angular/material/menu";
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
-  imports: [MatIcon]
+  imports: [MatIcon, MatMenuModule]
 })
 export class NavbarComponent {
   // Hacemos el componente más reutilizable permitiendo que las URLs vengan de fuera.

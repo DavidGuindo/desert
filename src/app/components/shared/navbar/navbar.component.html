@@ -15,12 +15,17 @@
 
   <div class="d-flex align-items-center gap-1">
     <!-- Logo del cliente -->
-    <div class="client-logo"></div>
-    <!-- Menú de usuario con logout -->
-    <button class="btn btn-danger d-flex align-items-center gap-2">
-      Cerrar sesión
-      <mat-icon>logout</mat-icon>
-    </button>
+    <div class="client-logo" mat-button [matMenuTriggerFor]="userMenu"></div>
+    <mat-menu #userMenu="matMenu">
+      
+      <!-- Menú de usuario con logout -->
+      <button mat-menu-item>
+        <mat-icon>logout</mat-icon>
+        <span>Cerrar sesión</span>
+      </button>
+      
+    </mat-menu>
+
   </div>
 </nav>
 

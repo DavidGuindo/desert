@@ -5,7 +5,7 @@
 
   /* Primary palette variables */
   --mat-sys-primary: light-dark(#5f5e5e, #c8c6c6);
-  --mat-sys-on-primary: light-dark(#ffffff, #303030);
+  --mat-sys-on-primary: light-dark(#ffffff, #3D3C3C);
   --mat-sys-primary-container: light-dark(#e4e2e1, #474747);
   --mat-sys-on-primary-container: light-dark(#1b1c1c, #e4e2e1);
   --mat-sys-inverse-primary: light-dark(#c8c6c6, #5f5e5e);
